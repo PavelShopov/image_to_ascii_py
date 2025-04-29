@@ -35,7 +35,7 @@ def proccess_image(img):
     return new_pix
 
 def make_into_ascii_art(pix, pixel_size):
-    global height,width,pixels_ascii,filename
+    global height,width,pixels_ascii_values,filename
     with open(f"ascii/{filename.split(".")[0]}.html", "w") as f:
         f.write(f"""<!DOCTYPE html>
         <html lang="en">
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     pixels = proccess_image(img)
     make_into_ascii_art(pixels,8)
 
-pixels_ascii = {
+pixels_ascii_values = {
     0: " ",
     28: ".",
     56: "^",
