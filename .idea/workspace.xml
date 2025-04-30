@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7614a3f6-5e8e-422c-8dac-a0254f2e51ec" name="Changes" comment="working version">
+    <list default="true" id="7614a3f6-5e8e-422c-8dac-a0254f2e51ec" name="Changes" comment="working out the arguments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/img_to_ascii_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/img_to_ascii_script.py" afterDir="false" />
     </list>
@@ -95,7 +95,7 @@
       <updated>1745500009450</updated>
       <workItem from="1745500010590" duration="18288000" />
       <workItem from="1745836562210" duration="474000" />
-      <workItem from="1745964786571" duration="6317000" />
+      <workItem from="1745964786571" duration="7475000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -121,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745970666708</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="working out the arguments">
+      <option name="closed" value="true" />
+      <created>1745971688172</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745971688172</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +138,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="working version" />
-    <option name="LAST_COMMIT_MESSAGE" value="working version" />
+    <MESSAGE value="working out the arguments" />
+    <option name="LAST_COMMIT_MESSAGE" value="working out the arguments" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/img_to_ascii_no_ai_py$test.coverage" NAME="test Coverage Results" MODIFIED="1745971526913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

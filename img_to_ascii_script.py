@@ -19,25 +19,6 @@ pixels_ascii_values = {
 }
 
 
-def proccess_image(img):
-    global width, height
-    width = int(width / 8)
-    height = int(height / 8)
-    img = img.resize((width, height), Image.Resampling.LANCZOS)
-    img = img.convert('L')
-
-    pixels = img.load()
-    new_pix = []
-
-    for y in range(height):
-        row = []
-        for x in range(width):
-            new_p = find_closest(pixels[x, y])
-            row.append(new_p)
-        new_pix.append(row)
-    return new_pix
-
-
 def find_closest(p):
     pix_vals = [0, 28, 56, 84, 112, 140, 168, 196, 224, 255]
     begin = abs(pix_vals[0] - p)
@@ -50,7 +31,7 @@ def find_closest(p):
         return pix_vals[num + 1]
 
 
-def make_into_ascii_art(pix, pixel_size, new_width, new_height):
+def make_into_ascii_art(pixels, args, new_width, new_height):
     global pixels_ascii_values
     with open("ascii/owl.html", "w", encoding="utf-8") as f:
         f.write(f"""<!DOCTYPE html>
@@ -63,7 +44,7 @@ def make_into_ascii_art(pix, pixel_size, new_width, new_height):
                         body {{
                             background-color: rgb(39, 38, 38);
                             color: azure;
-                            font-size: {pixel_size}px;
+                            font-size: {args.size}px;
                             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
                                          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                             text-justify: none;
@@ -76,7 +57,7 @@ def make_into_ascii_art(pix, pixel_size, new_width, new_height):
                 <body>
                     <pre>""")
         for y in range(new_height):
-            line = f" ".join(pixels_ascii_values[pix[y][x]] for x in range(new_width))
+            line = f" ".join(pixels_ascii_values[pixels[y][x]] for x in range(new_width))
             f.write(line + "\n")
 
         f.write("""</pre>
@@ -84,12 +65,27 @@ def make_into_ascii_art(pix, pixel_size, new_width, new_height):
         </html>""")
 
 
+def process_img(img, args, new_width, new_height):
+    resized_img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    resized_img = ImageEnhance.Brightness(resized_img).enhance(args.brightness)
+    resized_img = ImageEnhance.Contrast(resized_img).enhance(args.contrast)
+    resized_img = ImageEnhance.Sharpness(resized_img).enhance(args.sharpness)
+    gray_resized_img = resized_img.convert('L')
+    temp_pixels = gray_resized_img.load()
+    new_pixels = []
+    for y in range(new_height):
+        row = [find_closest(temp_pixels[x, y]) for x in range(new_width)]
+        new_pixels.append(row)
+    return new_pixels
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
 
     parser.add_argument('-f', '--file', help='File to process')
     parser.add_argument("--pixel_size", "-ps", type=int, default=8)
-    parser.add_argument("--brigth", "-b", type=float, default=1.2)
+    parser.add_argument("--size", "-s", type=int, default=8)
+    parser.add_argument("--brightness", "-b", type=float, default=1.2)
     parser.add_argument("--contrast", "-c", type=float, default=1.2)
     parser.add_argument("--sharpness", "-sh", type=float, default=1.2)
 
@@ -101,9 +97,12 @@ def main():
         exit()
 
     img = Image.open(f"imgs/{sys.argv[1]}")
-    width, height= img.size
-    pixels = proccess_image(img)
-    make_into_ascii_art(pixels, 8)
+    width, height = img.size
+    new_width = width // args.size
+    new_height = height // args.size
+
+    new_pixels = process_img(img, args, new_width, new_height)
+    make_into_ascii_art(new_pixels, args,  new_width, new_height)
 
 
 if __name__ == "__main__":
