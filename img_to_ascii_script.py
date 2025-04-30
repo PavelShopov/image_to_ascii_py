@@ -79,7 +79,7 @@ def process_img(img, args, new_width, new_height):
     return new_pixels
 
 
-def main():
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate ASCII art from an image.")
 
     parser.add_argument('-f', '--file', help='File to process')
@@ -93,6 +93,7 @@ def main():
 
     if not args.file:
         exit()
+
     if not args.image:
         exit()
 
@@ -103,7 +104,3 @@ def main():
 
     new_pixels = process_img(img, args, new_width, new_height)
     make_into_ascii_art(new_pixels, args,  new_width, new_height)
-
-
-if __name__ == "__main__":
-    main()
